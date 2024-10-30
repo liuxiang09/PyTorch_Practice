@@ -58,3 +58,6 @@ z7 = x7.view(-1, 8)  # -1表示从其他维度推断，由于后面是8，所以
 x8 = torch.randn(1)
 print(x8)
 print(x8.item())
+
+# 测试是否可以使用GPU
+print(torch.cuda.is_available())
