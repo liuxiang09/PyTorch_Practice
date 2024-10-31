@@ -26,16 +26,16 @@ class Net(nn.Module):
         # 定义了两个卷积层conv1和conv2，接着是三个全连接层fc1、fc2和fc3
         self.conv1 = nn.Conv2d(1, 6, 5)
         self.conv2 = nn.Conv2d(6, 16, 5)
-        # an affine operation: y = Wx + b
+        # 一个线性连接（仿射变换：y = xA^T + b）
         self.fc1 = nn.Linear(16 * 5 * 5, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
 
     # 向前传播函数
     def forward(self, x):
-        # Max pooling over a (2, 2) window
+        # 2x2的池化窗口
         x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
-        # If the size is a square you can only specify a single number
+        # 如果大小是正方形，可以只使用一个数字
         x = F.max_pool2d(F.relu(self.conv2(x)), 2)
         x = x.view(-1, self.num_flat_features(x))
         x = F.relu(self.fc1(x))
@@ -45,7 +45,7 @@ class Net(nn.Module):
 
     # 计算展平后的特征数量
     def num_flat_features(self, x):
-        size = x.size()[1:]  # all dimensions except the batch dimension
+        size = x.size()[1:]  # 除去批大小维度的其余所有维度
         num_features = 1
         for s in size:
             num_features *= s
