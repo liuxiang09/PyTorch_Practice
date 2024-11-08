@@ -1,3 +1,2 @@
 /.idea
-/official_document/data
-/official_document/data/cifar-10-batches-py
+*/data
